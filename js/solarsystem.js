@@ -90,7 +90,7 @@ submit.addEventListener('click',function(){
         request.onload = function () {
             if (request.status === 200) {
                 let data = JSON.parse(request.responseText);
-                fillHTMLElement(data);
+                fillHTMLelement(data);
             } else {
              console.log("API request failed.");
             }
