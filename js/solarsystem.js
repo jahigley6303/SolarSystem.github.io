@@ -82,28 +82,17 @@ submit.addEventListener('click',function(){
         }
 
         // establish the connection
-        console.log("Starting API request for:", input);
-
+    
         request.open('GET', 'https://dark-wave-3324.moonshay76.workers.dev/' + input);
 
-        request.setRequestHeader(
-            "Authorization",
-            "Bearer 4e276acf-27ff-4dc9-968b-31597d2f9744"
-        );
-
-        console.log("Request configured. Sending request...");
+        
 
         request.onload = function () {
-            console.log("Request completed!");
-            console.log("Status:", request.status);
-            console.log("Response:", request.responseText);
-
             if (request.status === 200) {
                 let data = JSON.parse(request.responseText);
-                console.log("Parsed data:", data);
                 fillHTMLElement(data);
             } else {
-                console.log("API request failed.");
+             console.log("API request failed.");
             }
         };
 
