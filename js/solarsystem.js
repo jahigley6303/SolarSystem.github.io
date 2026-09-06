@@ -82,8 +82,12 @@ submit.addEventListener('click',function(){
         }
 
         // establish the connection
-        request.open('GET', 'https://api.le-systeme-solaire.net/rest.php/bodies/' + input);
+        request.open('GET', 'https://api.le-systeme-solaire.net/rest/bodies/' + input);
 
+        request.setRequestHeader(
+            "Authorization",
+            "Bearer 4e276acf-27ff-4dc9-968b-31597d2f9744 "
+        );
 
         // if the request is successfully completed, then go ahead
         request.onload = function () {
