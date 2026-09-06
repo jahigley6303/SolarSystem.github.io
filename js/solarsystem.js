@@ -90,7 +90,7 @@ submit.addEventListener('click',function(){
         request.onload = function () {
             if (request.status === 200) {
                 let data = JSON.parse(request.responseText);
-                fillHTMLelement(data);
+                fillHTMLElement(data);
             } else {
              console.log("API request failed.");
             }
@@ -105,7 +105,7 @@ submit.addEventListener('click',function(){
 });
 
 
-function fillHTMLelement(jstring){
+function fillHTMLElement(jstring){
 
     // at this point we need to visualize specific elements (such as the down-pointing arrow, which invites the user to scroll down)
     document.getElementById('bottomBtn').style.cssText = "display: flex; flex-flow: row nowrap; justify-content: center; position:absolute; bottom:4em; left:49%; animation: upDownBtn 2s linear infinite;";
