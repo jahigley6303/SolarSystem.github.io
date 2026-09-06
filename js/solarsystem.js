@@ -84,10 +84,7 @@ submit.addEventListener('click',function(){
         // establish the connection
         console.log("Starting API request for:", input);
 
-        request.open(
-            'GET',
-            'https://api.le-systeme-solaire.net/rest/bodies/' + input
-        );
+        request.open('GET', 'https://dark-wave-3324.moonshay76.workers.dev/' + input);
 
         request.setRequestHeader(
             "Authorization",
