@@ -82,25 +82,36 @@ submit.addEventListener('click',function(){
         }
 
         // establish the connection
-        request.open('GET', 'https://api.le-systeme-solaire.net/rest/bodies/' + input);
+        console.log("Starting API request for:", input);
+
+        request.open(
+            'GET',
+            'https://api.le-systeme-solaire.net/rest/bodies/' + input
+        );
 
         request.setRequestHeader(
             "Authorization",
-            "Bearer 4e276acf-27ff-4dc9-968b-31597d2f9744 "
+            "Bearer 4e276acf-27ff-4dc9-968b-31597d2f9744"
         );
 
-        // if the request is successfully completed, then go ahead
-        request.onload = function () {
+        console.log("Request configured. Sending request...");
 
+        request.onload = function () {
+            console.log("Request completed!");
             console.log("Status:", request.status);
             console.log("Response:", request.responseText);
 
             if (request.status === 200) {
                 let data = JSON.parse(request.responseText);
+                console.log("Parsed data:", data);
                 fillHTMLElement(data);
             } else {
                 console.log("API request failed.");
             }
+        };
+
+        request.onerror = function () {
+            console.log("NETWORK ERROR - Request could not be completed.");
         };
 
         request.send();
