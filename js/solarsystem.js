@@ -92,15 +92,16 @@ submit.addEventListener('click',function(){
         // if the request is successfully completed, then go ahead
         request.onload = function () {
 
-            // parse the JSON string returned by the API web service server
-            let data = JSON.parse(request.responseText);
+            console.log("Status:", request.status);
+            console.log("Response:", request.responseText);
 
-            // print the parsed data into the console (for debugging purpose)
-            //console.log(data);
-
-            // call for the function responsible to display the data in the html page
-            fillHTMLelement(data);
-        }
+            if (request.status === 200) {
+                let data = JSON.parse(request.responseText);
+                fillHTMLElement(data);
+            } else {
+                console.log("API request failed.");
+            }
+        };
 
         request.send();
     }
