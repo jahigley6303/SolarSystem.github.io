@@ -5,22 +5,23 @@ header, main, body{
 }
 
 body {
-    background-color: #ff6961;
+    background-color: #f4f7f9;
     font-family: 'Montserrat', 'sans-serif';
     font-weight: 300;
+    color: #333
 }
 
 
-/* ITALISIZE COLOR*/
+/* ITALICIZE COLOR*/
 i{
-    color: #39ff14;
+    color: #2563eb;
 
 }
    
 
 /* HEADER */
 header{
-    color: #8b0000;
+    color: #1e3a5f;
     text-align: center;
     font-size: 22px;
 }
@@ -36,10 +37,10 @@ header{
 
 .return a{
     padding: .9em;
-    background-color: #8b0000;
+    background-color: #1e3a5f;
     border-radius: 12px;
     font-size: 1.20em;
-    color: #edeee9;
+    color: #ffffff;
 }
 
 footer{
