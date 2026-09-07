@@ -1,21 +1,30 @@
 // ***********Topic 4 AJAX Requesting a JSON File************** */
 
-// create a variable to hold the html button item
 var btn = document.getElementById('btn');
 
-// add an event listener to the button
+var coords = {
+    "Detroit,MI":        { lat: 42.3314,  lon: -83.0458 },
+    "Salt+Lake+City,UT": { lat: 40.7608,  lon: -111.8910 },
+    "Houston,AK":        { lat: 61.6303,  lon: -149.8064 }
+};
+
 btn.addEventListener('click', function () {
 
-    // retrieve the value from the radio button checked
     var city = document.forms.list.city.value;
 
-    // create an instance of XMLHttpRequest
+    if (!city) {
+        alert("Please select a city first.");
+        return;
+    }
+
+    var loc = coords[city];
+
     var rqt = new XMLHttpRequest();
 
-    // establish the connection
-    rqt.open('GET', 'https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current=temperature_2m,weather_code&temperature_unit=fahrenheit', true);
+    rqt.open('GET', 'https://api.open-meteo.com/v1/forecast?latitude=' + loc.lat +
+        '&longitude=' + loc.lon +
+        '&current=temperature_2m,weather_code&temperature_unit=fahrenheit', true);
 
-    // if the request is successfully completed
     rqt.onload = function () {
 
         console.log("Status:", rqt.status);
@@ -24,19 +33,14 @@ btn.addEventListener('click', function () {
         if (rqt.status === 200) {
 
             var data = JSON.parse(rqt.responseText);
-
-            fillHTMLElement(data);
+            fillHTMLElement(data, city);
 
         } else {
 
             console.log("API request failed.");
-
-            document.getElementById('info1').innerHTML =
-                "Unable to retrieve weather data.";
-            document.getElementById('info2').innerHTML =
-                "Status: " + rqt.status;
-            document.getElementById('info3').innerHTML =
-                "Please check the API key.";
+            document.getElementById('info1').innerHTML = "Unable to retrieve weather data.";
+            document.getElementById('info2').innerHTML = "Status: " + rqt.status;
+            document.getElementById('info3').innerHTML = "Please check the API key.";
 
         }
     };
@@ -49,20 +53,17 @@ btn.addEventListener('click', function () {
 
 });
 
-
-function fillHTMLElement(info) {
+function fillHTMLElement(info, cityName) {
 
     var temperature = info.current.temperature_2m;
     var weatherCode = info.current.weather_code;
     var desc = getWeatherDescription(weatherCode);
 
-    document.getElementById('info1').innerHTML = "Selected city";
+    document.getElementById('info1').innerHTML = decodeURIComponent(cityName).replace('+', ' ');
     document.getElementById('info2').innerHTML = temperature + " F&deg;";
     document.getElementById('info3').innerHTML = desc;
 }
 
-// Open-Meteo gives a numeric WMO weather code, not a text description,
-// so you need to translate it yourself
 function getWeatherDescription(code) {
     var codes = {
         0: "Clear sky",
