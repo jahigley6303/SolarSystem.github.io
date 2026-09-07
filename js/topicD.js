@@ -52,11 +52,33 @@ btn.addEventListener('click', function () {
 
 function fillHTMLElement(info) {
 
-    var city = info.data[0].city_name;
-    var temperature = info.data[0].temp;
-    var desc = info.data[0].weather.description;
+    var temperature = info.current.temperature_2m;
+    var weatherCode = info.current.weather_code;
+    var desc = getWeatherDescription(weatherCode);
 
-    document.getElementById('info1').innerHTML = city;
+    document.getElementById('info1').innerHTML = "Selected city";
     document.getElementById('info2').innerHTML = temperature + " F&deg;";
     document.getElementById('info3').innerHTML = desc;
+}
+
+// Open-Meteo gives a numeric WMO weather code, not a text description,
+// so you need to translate it yourself
+function getWeatherDescription(code) {
+    var codes = {
+        0: "Clear sky",
+        1: "Mainly clear",
+        2: "Partly cloudy",
+        3: "Overcast",
+        45: "Fog",
+        48: "Depositing rime fog",
+        51: "Light drizzle",
+        61: "Slight rain",
+        63: "Moderate rain",
+        65: "Heavy rain",
+        71: "Slight snow",
+        73: "Moderate snow",
+        75: "Heavy snow",
+        95: "Thunderstorm"
+    };
+    return codes[code] || "Unknown conditions";
 }
