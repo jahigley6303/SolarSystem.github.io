@@ -29,14 +29,14 @@ btn.addEventListener('click', function () {
         console.log(data);
 
         // call for the function responsible to display the data in the html page
-        fillHTMLelement(data);
+        fillHTMLElement(data);
     }
 
 
 });
 
 
-function fillHTMLelement(info) {
+function fillHTMLElement(info) {
 
     var city = info.data[0].city_name;
     var temperature = info.data[0].temp;
