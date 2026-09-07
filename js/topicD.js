@@ -9,32 +9,47 @@ btn.addEventListener('click', function () {
     // retrieve the value from the radio button checked
     var city = document.forms.list.city.value;
 
-
     // create an instance of XMLHttpRequest
     var rqt = new XMLHttpRequest();
 
     // establish the connection
     rqt.open(
         'GET',
-        'https://api.weatherbit.io/v2.0/current?city=' +
-        city +
-        '&units=I&key=YOUR_API_KEY',
+        'https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current=temperature_2m,weather_code&temperature_unit=fahrenheit',
         true
     );
 
-    // if the request is successfully completed, then go ahead
+    // if the request is successfully completed
     rqt.onload = function () {
 
-        // parse the JSON string returned by the API web service server
-        var data = JSON.parse(rqt.responseText);
+        console.log("Status:", rqt.status);
+        console.log("Response:", rqt.responseText);
 
-        // print the parsed data into the console (for debugging purpose)
-        console.log(data);
+        if (rqt.status === 200) {
 
-        // call for the function responsible to display the data in the html page
-        fillHTMLElement(data);
-    }
+            var data = JSON.parse(rqt.responseText);
 
+            fillHTMLElement(data);
+
+        } else {
+
+            console.log("API request failed.");
+
+            document.getElementById('info1').innerHTML =
+                "Unable to retrieve weather data.";
+            document.getElementById('info2').innerHTML =
+                "Status: " + rqt.status;
+            document.getElementById('info3').innerHTML =
+                "Please check the API key.";
+
+        }
+    };
+
+    rqt.onerror = function () {
+        console.log("Network Error");
+    };
+
+    rqt.send();
 
 });
 
