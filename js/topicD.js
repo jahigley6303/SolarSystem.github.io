@@ -13,11 +13,7 @@ btn.addEventListener('click', function () {
     var rqt = new XMLHttpRequest();
 
     // establish the connection
-    rqt.open(
-        'GET',
-        'https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto',
-        true
-    );
+    rqt.open('GET', 'https://api.open-meteo.com/v1/forecast?latitude=42.3314&longitude=-83.0458&current=temperature_2m,weather_code&temperature_unit=fahrenheit', true);
 
     // if the request is successfully completed
     rqt.onload = function () {
